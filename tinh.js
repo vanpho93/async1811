@@ -37,19 +37,19 @@ function chia(a, b, cb) {
 //     });
 // });
 function tinhDienTich(a, b, h, cb) {
-    cong(a, b, (err, tong) => {
-        if (err) return cb(err);
-        nhan(tong, h, (err, tich) => {
-            if (err) return cb(err);
-            chia(tich, 2, (err, result) => {
-                if (err) return cb(err);
+    cong(a, b, (errCong, tong) => {
+        if (errCong) return cb(errCong);
+        nhan(tong, h, (errNhan, tich) => {
+            if (errNhan) return cb(errNhan);
+            chia(tich, 2, (errTich, result) => {
+                if (errTich) return cb(errTich);
                 cb(null, result);
             });
         });
     });
 }
 
-tinhDienTich(4, 5, 12, (err, result) => {
-    if (err) return console.log(err);
+tinhDienTich('x', 5, 12, (err, result) => {
+    if (err) return console.log(err.message);
     console.log(result);
 });
