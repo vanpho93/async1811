@@ -31,36 +31,24 @@ function chiaPromise(a, b) {
     });
 }
 
-function tinhDienTich(a, b, h) {
-    return congPromise(a, b)
-    .then(tong => nhanPromise(tong, h1))
-    .then(tich => chiaPromise(tich, 2))
+async function tinhDienTich(a, b, h) {
+    try {
+        const tong = await congPromise(a, b);
+        const tich = await nhanPromise(tong, h);
+        const kq = await chiaPromise(tich, 2);
+        return kq;
+    } catch (err) {
+        return null;
+    }
 }
 
-tinhDienTich(4, 5, 6)
-.then(kq => console.log(kq))
-.catch(err => console.log(err));
-// (4 + 5) * 6 / 2
+// tinhDienTich(4, 'x', 6)
+// .then(kq => console.log(kq))
+// .catch(x => console.log(x))
 
-function getTempPromise(cityName) {
-    return new Promise((resolve, reject) => {
-        const preURL = 'http://api.openweathermap.org/data/2.5/weather?appid=01cc37655736835b0b75f2b395737694&units=metric&q=';
-        request(preURL + cityName, (err, res, body) => {
-            if (err) return reject(err);
-            const obj = JSON.parse(body);
-            // temp = obj.main.temp;
-            if (!obj.main) {
-                return reject(new Error(obj.message));
-            }
-            resolve(obj.main.temp);
-        });
-    });
-}
+// Promise.resolve(10)
+// .then(kq => console.log(kq))
 
-// getTempPromise('xcdcd')
-// .then(temp => console.log(`Temp: ` + temp))
-// .catch(err => console.log(err.message));
-
-// congPromise(4, 5)
-// .then((result) => console.log(result))
-// .catch((err) => console.log(err))
+// Promise.reject(new Error('Loi'))
+// .then(kq => console.log(kq))
+// .catch(err => console.log(err));

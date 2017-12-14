@@ -5,7 +5,9 @@ const app = express();
 app.get('/tinh/:tenPhepTinh/:soA/:soB', (req, res) => {
     const { tenPhepTinh, soA, soB } = req.params;
     const pt = new PhepTinh(soA, soB, tenPhepTinh);
-    res.send(pt.getResult() + '');
+    setTimeout(() => {
+        res.send(pt.getResult() + '');
+    }, 0)
 });
 
 app.listen(3000, () => console.log('Server started'));
